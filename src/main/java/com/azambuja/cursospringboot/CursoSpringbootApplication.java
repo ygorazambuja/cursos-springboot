@@ -2,12 +2,14 @@ package com.azambuja.cursospringboot;
 
 import com.azambuja.cursospringboot.domain.*;
 import com.azambuja.cursospringboot.domain.enums.ClientType;
+import com.azambuja.cursospringboot.domain.enums.PaymentState;
 import com.azambuja.cursospringboot.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 @SpringBootApplication
@@ -21,20 +23,19 @@ public class CursoSpringbootApplication implements CommandLineRunner {
     private CategoryRepository categoryRepository;
     @Autowired
     private ProductRepository productRepository;
-
     @Autowired
     private CityRepository cityRepository;
-
     @Autowired
     private StateRepository stateRepository;
-
     @Autowired
     private AddressRepository addressRepository;
-
     @Autowired
     private ClientRepository clientRepository;
 
-
+    @Autowired
+    private BuyRequestRepository buyRequestRepository;
+    @Autowired
+    private PaymentRepository paymentRepository;
     @Override
     public void run(String... args) throws Exception {
 
@@ -74,22 +75,36 @@ public class CursoSpringbootApplication implements CommandLineRunner {
         stateRepository.saveAll(Arrays.asList(state1, state2));
         cityRepository.saveAll(Arrays.asList(city1, city2, city3));
 
-        Client client1 = new Client(null, "Maria Silva", "maria@gmail.com", "36378912377", ClientType.FISICPERSON);
+        Client client1 = new Client(null, "Maria Silva", "maria@gmail.com",
+                "36378912377", ClientType.FISICPERSON);
 
         client1.getPhones().addAll(Arrays.asList("12312321312", "1231232123"));
 
-        Address address1 = new Address(null, "Rua Flores", "300", "Apto 303", "Jardim", "312312", client1, city1);
-        Address address2 = new Address(null, "Avenida Matos", "105", "Sala 0800", "Centro", "123123123", client1, city2);
+        Address address1 = new Address(null, "Rua Flores", "300",
+                "Apto 303", "Jardim", "312312", client1, city1);
+        Address address2 = new Address(null, "Avenida Matos", "105",
+                "Sala 0800", "Centro", "123123123", client1, city2);
 
 
         client1.getAddressList().addAll(Arrays.asList(address1, address2));
-
-
-
         clientRepository.save(client1);
         addressRepository.saveAll(Arrays.asList(address1, address2));
 
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        BuyRequest buyRequest = new BuyRequest(null, simpleDateFormat.parse("30/09/2017 10:32"), client1, address1);
+        BuyRequest buyRequest2 = new BuyRequest(null, simpleDateFormat.parse("10/10/2017 19:35"), client1, address2);
 
+        Payment payment1 = new CardPayment(null, PaymentState.SETTLED, buyRequest, 6);
+        buyRequest.setPayment(payment1);
+
+        Payment payment2 = new BilletPayment(null, PaymentState.PENDING, buyRequest2,
+                simpleDateFormat.parse("20/10/2017 00:00"), null);
+
+        buyRequest2.setPayment(payment2);
+        client1.getBuyRequests().addAll(Arrays.asList(buyRequest, buyRequest2));
+
+        buyRequestRepository.saveAll(Arrays.asList(buyRequest, buyRequest2));
+        paymentRepository.saveAll(Arrays.asList(payment1, payment2));
 
 
     }

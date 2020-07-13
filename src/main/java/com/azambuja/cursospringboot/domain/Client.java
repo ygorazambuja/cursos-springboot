@@ -11,7 +11,8 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-public class Client implements Serializable {
+public class
+Client implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -30,6 +31,9 @@ public class Client implements Serializable {
     @ElementCollection
     @CollectionTable(name = "PHONES")
     private Set<String> phones = new HashSet<>();
+
+    @OneToMany(mappedBy = "client")
+    private List<BuyRequest> buyRequests = new ArrayList<>();
 
     public Client() {
     }
@@ -96,6 +100,14 @@ public class Client implements Serializable {
 
     public void setPhones(Set<String> phones) {
         this.phones = phones;
+    }
+
+    public List<BuyRequest> getBuyRequests() {
+        return buyRequests;
+    }
+
+    public void setBuyRequests(List<BuyRequest> buyRequests) {
+        this.buyRequests = buyRequests;
     }
 
     @Override
