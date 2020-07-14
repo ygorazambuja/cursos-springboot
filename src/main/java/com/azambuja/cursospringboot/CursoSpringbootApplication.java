@@ -9,6 +9,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
@@ -36,6 +37,10 @@ public class CursoSpringbootApplication implements CommandLineRunner {
     private BuyRequestRepository buyRequestRepository;
     @Autowired
     private PaymentRepository paymentRepository;
+
+    @Autowired
+    private ItemRequestRepository itemRequestRepository;
+
     @Override
     public void run(String... args) throws Exception {
 
@@ -105,6 +110,21 @@ public class CursoSpringbootApplication implements CommandLineRunner {
 
         buyRequestRepository.saveAll(Arrays.asList(buyRequest, buyRequest2));
         paymentRepository.saveAll(Arrays.asList(payment1, payment2));
+
+
+        ItemRequest itemRequest1 = new ItemRequest(buyRequest, product1, 0.00, 1, 2000.0);
+        ItemRequest itemRequest2 = new ItemRequest(buyRequest, product3, 0.00, 2, 80.0);
+        ItemRequest itemRequest3 = new ItemRequest(buyRequest2, product2, 100.00, 1, 800.00);
+
+        buyRequest.getItemRequestSet().addAll(Arrays.asList(itemRequest1, itemRequest2));
+        buyRequest2.getItemRequestSet().addAll(Arrays.asList(itemRequest3));
+
+        product1.getItemRequestSet().addAll(Arrays.asList(itemRequest1));
+        product2.getItemRequestSet().addAll(Arrays.asList(itemRequest3));
+        product3.getItemRequestSet().addAll(Arrays.asList(itemRequest2));
+
+
+        itemRequestRepository.saveAll(Arrays.asList(itemRequest1, itemRequest2, itemRequest3));
 
 
     }

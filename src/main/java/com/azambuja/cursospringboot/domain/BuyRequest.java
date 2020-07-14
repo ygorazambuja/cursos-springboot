@@ -2,6 +2,8 @@ package com.azambuja.cursospringboot.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -28,6 +30,9 @@ public class BuyRequest implements Serializable {
     @ManyToOne
     @JoinColumn(name = "address_id")
     private Address deliverAddress;
+
+    @OneToMany(mappedBy = "id.buyRequest")
+    private Set<ItemRequest> itemRequestSet = new HashSet<>();
 
     public BuyRequest() {
     }
@@ -78,5 +83,13 @@ public class BuyRequest implements Serializable {
 
     public void setDeliverAddress(Address deliverAddress) {
         this.deliverAddress = deliverAddress;
+    }
+
+    public Set<ItemRequest> getItemRequestSet() {
+        return itemRequestSet;
+    }
+
+    public void setItemRequestSet(Set<ItemRequest> itemRequestSet) {
+        this.itemRequestSet = itemRequestSet;
     }
 }
