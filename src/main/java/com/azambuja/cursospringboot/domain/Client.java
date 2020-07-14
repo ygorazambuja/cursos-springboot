@@ -1,8 +1,7 @@
 package com.azambuja.cursospringboot.domain;
 
 import com.azambuja.cursospringboot.domain.enums.ClientType;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -25,7 +24,7 @@ Client implements Serializable {
     private String cpfOrCpnj;
     private Integer clientType;
 
-    @JsonManagedReference
+
     @OneToMany(mappedBy = "client")
     private List<Address> addressList = new ArrayList<>();
 
@@ -33,7 +32,7 @@ Client implements Serializable {
     @CollectionTable(name = "PHONES")
     private Set<String> phones = new HashSet<>();
 
-    @JsonBackReference
+    @JsonIgnore
     @OneToMany(mappedBy = "client")
     private List<BuyRequest> buyRequests = new ArrayList<>();
 
