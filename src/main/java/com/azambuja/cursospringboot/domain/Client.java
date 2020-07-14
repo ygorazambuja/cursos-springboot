@@ -1,6 +1,7 @@
 package com.azambuja.cursospringboot.domain;
 
 import com.azambuja.cursospringboot.domain.enums.ClientType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -32,6 +33,7 @@ Client implements Serializable {
     @CollectionTable(name = "PHONES")
     private Set<String> phones = new HashSet<>();
 
+    @JsonBackReference
     @OneToMany(mappedBy = "client")
     private List<BuyRequest> buyRequests = new ArrayList<>();
 

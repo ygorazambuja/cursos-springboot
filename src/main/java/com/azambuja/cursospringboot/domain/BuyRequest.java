@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class BuyRequest implements Serializable {
@@ -20,9 +21,11 @@ public class BuyRequest implements Serializable {
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private Date instant;
 
+    @JsonManagedReference
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "buyRequest")
     private Payment payment;
 
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;

@@ -1,6 +1,7 @@
 package com.azambuja.cursospringboot.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -25,6 +26,7 @@ public class Product implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private List<Category> categories = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "id.product")
     private Set<ItemRequest> itemRequestSet = new HashSet<>();
 
@@ -37,7 +39,8 @@ public class Product implements Serializable {
         this.price = price;
     }
 
-    public List<BuyRequest> buyRequests() {
+    @JsonIgnore
+    public List<BuyRequest> getBuyRequests() {
         List<BuyRequest> list = new ArrayList<>();
         for (ItemRequest itemRequest : itemRequestSet) {
             list.add(itemRequest.getBuyRequest());

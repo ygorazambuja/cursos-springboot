@@ -68,6 +68,7 @@ public class ItemRequest implements Serializable {
         return this.id.getBuyRequest();
     }
 
+    @JsonIgnore
     public Product getProduct() {
         return this.id.getProduct();
     }
