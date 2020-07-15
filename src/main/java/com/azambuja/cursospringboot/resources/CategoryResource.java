@@ -7,6 +7,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -58,6 +59,23 @@ public class CategoryResource {
       .stream()
       .map(CategoryDTO::new)
       .collect(Collectors.toList());
+    return ResponseEntity.ok().body(categoryDTOS);
+  }
+
+  @GetMapping(value = "/page")
+  public ResponseEntity<Page<CategoryDTO>> getByPage(
+    @RequestParam(value = "page", defaultValue = "0") Integer page,
+    @RequestParam(value = "linesPerPage/", defaultValue = "24") Integer linesPerPage,
+    @RequestParam(value = "orderBy", defaultValue = "name") String orderBy,
+    @RequestParam(value = "direction", defaultValue = "ASC") String direction
+  ) {
+    Page<Category> categoriaServicePage = categoriaService.findPage(
+      page,
+      linesPerPage,
+      orderBy,
+      direction
+    );
+    Page<CategoryDTO> categoryDTOS = categoriaServicePage.map(CategoryDTO::new);
     return ResponseEntity.ok().body(categoryDTOS);
   }
 }

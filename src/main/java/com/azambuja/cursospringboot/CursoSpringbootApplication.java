@@ -4,7 +4,6 @@ import com.azambuja.cursospringboot.domain.*;
 import com.azambuja.cursospringboot.domain.enums.ClientType;
 import com.azambuja.cursospringboot.domain.enums.PaymentState;
 import com.azambuja.cursospringboot.repository.*;
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +49,15 @@ public class CursoSpringbootApplication implements CommandLineRunner {
   public void run(String... args) throws Exception {
     Category category1 = new Category(null, "Informatics");
     Category category2 = new Category(null, "Office");
+    Category category3 = new Category(null, "uyg");
+    Category category4 = new Category(null, "uygu");
+    Category category5 = new Category(null, "Offuyguice");
+    Category category6 = new Category(null, "uyg");
+    Category category7 = new Category(null, "uyg");
+    Category category8 = new Category(null, "Offiuyce");
+    Category category9 = new Category(null, "tfytf");
+    Category category10 = new Category(null, "Offictfte");
+    Category category11 = new Category(null, "Ofrdtrdfice");
 
     Product product1 = new Product(null, "Computer", 2000.00);
     Product product2 = new Product(null, "Printer", 800.00);
@@ -76,7 +84,21 @@ public class CursoSpringbootApplication implements CommandLineRunner {
     city2.setState(state2);
     city3.setState(state2);
 
-    categoryRepository.saveAll(Arrays.asList(category1, category2));
+    categoryRepository.saveAll(
+      Arrays.asList(
+        category1,
+        category2,
+        category3,
+        category4,
+        category5,
+        category6,
+        category7,
+        category8,
+        category9,
+        category10,
+        category11
+      )
+    );
     productRepository.saveAll(Arrays.asList(product1, product2, product3));
     stateRepository.saveAll(Arrays.asList(state1, state2));
     cityRepository.saveAll(Arrays.asList(city1, city2, city3));
