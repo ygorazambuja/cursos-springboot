@@ -1,9 +1,11 @@
 package com.azambuja.cursospringboot.resources;
 
 import com.azambuja.cursospringboot.domain.Category;
+import com.azambuja.cursospringboot.dto.CategoryDTO;
 import com.azambuja.cursospringboot.services.CategoriaService;
 import java.net.URI;
-import org.apache.coyote.Response;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -46,5 +48,16 @@ public class CategoryResource {
   public ResponseEntity<Void> delete(@PathVariable Integer id) {
     categoriaService.delete(id);
     return ResponseEntity.noContent().build();
+  }
+
+  @GetMapping
+  public ResponseEntity<List<CategoryDTO>> getAll() {
+    List<Category> categories = categoriaService.getAll();
+    // category -> new CategoryDTO(category))
+    List<CategoryDTO> categoryDTOS = categories
+      .stream()
+      .map(CategoryDTO::new)
+      .collect(Collectors.toList());
+    return ResponseEntity.ok().body(categoryDTOS);
   }
 }

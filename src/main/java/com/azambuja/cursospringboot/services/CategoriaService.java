@@ -4,6 +4,7 @@ import com.azambuja.cursospringboot.domain.Category;
 import com.azambuja.cursospringboot.repository.CategoryRepository;
 import com.azambuja.cursospringboot.services.exceptions.DataIntegrityException;
 import com.azambuja.cursospringboot.services.exceptions.ObjectNotFoundException;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -42,5 +43,9 @@ public class CategoriaService {
     } catch (DataIntegrityViolationException e) {
       throw new DataIntegrityException("Category have Dependents", e.getCause());
     }
+  }
+
+  public List<Category> getAll() {
+    return categoryRepository.findAll();
   }
 }
