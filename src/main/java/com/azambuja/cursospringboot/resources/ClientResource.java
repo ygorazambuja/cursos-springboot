@@ -12,13 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/clients")
 public class ClientResource {
+  @Autowired
+  private ClientService clientService;
 
-    @Autowired
-    private ClientService clientService;
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> getById(@PathVariable Integer id) {
-        Client client = clientService.getById(id);
-        return ResponseEntity.ok().body(client);
-    }
+  @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+  public ResponseEntity<Client> getById(@PathVariable Integer id) {
+    Client client = clientService.getById(id);
+    return ResponseEntity.ok().body(client);
+  }
 }

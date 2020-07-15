@@ -8,43 +8,37 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/categories")
 public class CategoryResource {
+  @Autowired
+  private CategoriaService categoriaService;
 
-    @Autowired
-    private CategoriaService categoriaService;
+  @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+  public ResponseEntity<Category> getById(@PathVariable Integer id) {
+    Category category = categoriaService.getById(id);
+    return ResponseEntity.ok().body(category);
+  }
 
+  @RequestMapping(method = RequestMethod.POST)
+  public ResponseEntity<Void> insert(@RequestBody Category newCategory) {
+    Category category = categoriaService.insert(newCategory);
+    URI uri = ServletUriComponentsBuilder
+            .fromCurrentRequest()
+            .path("/{id}")
+            .buildAndExpand(category.getId())
+            .toUri();
+    return ResponseEntity.created(uri).build();
+  }
 
-    @RequestMapping( method = RequestMethod.GET)
-    public List<Category> list() {
-
-        Category category1 = new Category(1, "Informatica");
-        Category category2 = new Category(2, "Escritório");
-
-        List<Category> list = new ArrayList<>();
-        list.add(category1);
-        list.add(category2);
-        return list;
-    }
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> getById(@PathVariable Integer id) {
-        Category category = categoriaService.getById(id);
-        return ResponseEntity.ok().body(category);
-    }
-
-    @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> insert(@RequestBody Category newCategory) {
-
-        Category category = categoriaService.insert(newCategory);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(category.getId())
-                .toUri();
-        return ResponseEntity.created(uri).build();
-    }
+  @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+  public ResponseEntity<Void> update(
+          @RequestBody Category updatedCategory,
+          @PathVariable Integer id
+  ) {
+    updatedCategory.setId(id);
+    updatedCategory = categoriaService.update(updatedCategory);
+    return ResponseEntity.noContent().build();
+  }
 }

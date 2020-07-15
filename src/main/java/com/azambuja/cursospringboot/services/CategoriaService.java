@@ -8,19 +8,28 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CategoriaService {
+  @Autowired
+  private CategoryRepository categoryRepository;
 
-    @Autowired
-    private CategoryRepository categoryRepository;
+  public Category getById(Integer id) {
+    return categoryRepository
+      .findById(id)
+      .orElseThrow(
+        () ->
+          new ObjectNotFoundException(
+            "Object " + Category.class.getName() + " id: " + id + " not found"
+          )
+      );
+  }
 
-    public Category getById(Integer id) {
-        return categoryRepository.findById(id).orElseThrow(() ->
-                new ObjectNotFoundException("Object " + Category.class.getName() + " id: " + id + " not found"));
-    }
+  public Category insert(Category category) {
+    category.setId(null);
+    return categoryRepository.save(category);
+  }
 
-    public Category insert(Category category) {
-        category.setId(null);
-        return categoryRepository.save(category);
-    }
-
-
+  public Category update(Category category) {
+    Category newObj = getById(category.getId());
+    newObj.setName(category.getName());
+    return categoryRepository.save(newObj);
+  }
 }

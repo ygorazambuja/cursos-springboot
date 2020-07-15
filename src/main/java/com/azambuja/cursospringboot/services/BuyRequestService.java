@@ -8,13 +8,17 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class BuyRequestService {
-    @Autowired
-    private BuyRequestRepository buyRequestRepository;
+  @Autowired
+  private BuyRequestRepository buyRequestRepository;
 
-    public BuyRequest getById(Integer id) {
-        return buyRequestRepository.findById(id).orElseThrow(() ->
-                new ObjectNotFoundException("Object " +
-                        BuyRequest.class.getName() + " id: " + id + " not found"));
-
-    }
+  public BuyRequest getById(Integer id) {
+    return buyRequestRepository
+      .findById(id)
+      .orElseThrow(
+        () ->
+          new ObjectNotFoundException(
+            "Object " + BuyRequest.class.getName() + " id: " + id + " not found"
+          )
+      );
+  }
 }

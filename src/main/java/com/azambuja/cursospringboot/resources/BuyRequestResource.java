@@ -12,13 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/buyRequests")
 public class BuyRequestResource {
+  @Autowired
+  BuyRequestService buyRequestService;
 
-    @Autowired
-    BuyRequestService buyRequestService;
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> getById(@PathVariable Integer id) {
-        BuyRequest buyRequest = buyRequestService.getById(id);
-        return ResponseEntity.ok().body(buyRequest);
-    }
+  @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+  public ResponseEntity<BuyRequest> getById(@PathVariable Integer id) {
+    BuyRequest buyRequest = buyRequestService.getById(id);
+    return ResponseEntity.ok().body(buyRequest);
+  }
 }
