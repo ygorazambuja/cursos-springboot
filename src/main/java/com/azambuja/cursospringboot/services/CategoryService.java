@@ -13,7 +13,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CategoriaService {
+public class CategoryService {
   @Autowired
   private CategoryRepository categoryRepository;
 
