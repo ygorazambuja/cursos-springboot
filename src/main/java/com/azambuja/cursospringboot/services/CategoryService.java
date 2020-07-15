@@ -1,6 +1,7 @@
 package com.azambuja.cursospringboot.services;
 
 import com.azambuja.cursospringboot.domain.Category;
+import com.azambuja.cursospringboot.dto.CategoryDTO;
 import com.azambuja.cursospringboot.repository.CategoryRepository;
 import com.azambuja.cursospringboot.services.exceptions.DataIntegrityException;
 import com.azambuja.cursospringboot.services.exceptions.ObjectNotFoundException;
@@ -65,5 +66,9 @@ public class CategoryService {
       orderBy
     );
     return categoryRepository.findAll(pageRequest);
+  }
+
+  public Category fromDTO(CategoryDTO categoryDTO) {
+    return new Category(categoryDTO.getId(), categoryDTO.getName());
   }
 }
