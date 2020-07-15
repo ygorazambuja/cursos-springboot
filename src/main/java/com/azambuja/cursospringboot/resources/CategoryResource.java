@@ -3,16 +3,15 @@ package com.azambuja.cursospringboot.resources;
 import com.azambuja.cursospringboot.domain.Category;
 import com.azambuja.cursospringboot.dto.CategoryDTO;
 import com.azambuja.cursospringboot.services.CategoryService;
+import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import javax.validation.Valid;
-import java.net.URI;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/categories")
@@ -31,22 +30,21 @@ public class CategoryResource {
     Category category = categoryService.fromDTO(newCategory);
     category = categoryService.insert(category);
     URI uri = ServletUriComponentsBuilder
-            .fromCurrentRequest()
-            .path("/{id}")
-            .buildAndExpand(category.getId())
-            .toUri();
+      .fromCurrentRequest()
+      .path("/{id}")
+      .buildAndExpand(category.getId())
+      .toUri();
     return ResponseEntity.created(uri).build();
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
   public ResponseEntity<Void> update(
-          @Valid
-          @RequestBody CategoryDTO categoryDTO,
-          @PathVariable Integer id
+    @Valid @RequestBody CategoryDTO categoryDTO,
+    @PathVariable Integer id
   ) {
     Category category = categoryService.fromDTO(categoryDTO);
     category.setId(id);
-    category = categoryService.update(category);
+    categoryService.update(category);
     return ResponseEntity.noContent().build();
   }
 
