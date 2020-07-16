@@ -2,12 +2,13 @@ package com.azambuja.cursospringboot.domain;
 
 import com.azambuja.cursospringboot.domain.enums.ClientType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.persistence.*;
 
 @Entity
 public class Client implements Serializable {
@@ -46,7 +47,7 @@ public class Client implements Serializable {
     this.name = name;
     this.email = email;
     this.cpfOrCpnj = cpfOrCpnj;
-    this.clientType = clientType.getCode();
+    this.clientType = (clientType == null) ? null : clientType.getCode();
   }
 
   public Integer getId() {
