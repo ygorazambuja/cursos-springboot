@@ -1,6 +1,7 @@
 package com.azambuja.cursospringboot.services;
 
 import com.azambuja.cursospringboot.domain.Category;
+import com.azambuja.cursospringboot.domain.Category;
 import com.azambuja.cursospringboot.dto.CategoryDTO;
 import com.azambuja.cursospringboot.repository.CategoryRepository;
 import com.azambuja.cursospringboot.services.exceptions.DataIntegrityException;
@@ -35,9 +36,13 @@ public class CategoryService {
   }
 
   public Category update(Category category) {
-    Category newObj = getById(category.getId());
-    newObj.setName(category.getName());
-    return categoryRepository.save(newObj);
+    Category newCategory = getById(category.getId());
+    updateData(newCategory, category);
+    return categoryRepository.save(newCategory);
+  }
+
+  private void updateData(Category newCategory, Category category) {
+    newCategory.setName(category.getName());
   }
 
   public void delete(Integer id) {
