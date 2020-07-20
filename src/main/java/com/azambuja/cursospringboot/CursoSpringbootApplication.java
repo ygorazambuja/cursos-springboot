@@ -6,6 +6,8 @@ import com.azambuja.cursospringboot.domain.enums.PaymentState;
 import com.azambuja.cursospringboot.repository.*;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Collections;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -64,18 +66,18 @@ public class CursoSpringbootApplication implements CommandLineRunner {
     Product product3 = new Product(null, "Mouse", 80.00);
 
     category1.getProducts().addAll(Arrays.asList(product1, product2, product3));
-    category2.getProducts().addAll(Arrays.asList(product2));
+    category2.getProducts().addAll(Collections.singletonList(product2));
 
-    product1.getCategories().addAll(Arrays.asList(category1));
+    product1.getCategories().addAll(Collections.singletonList(category1));
     product2.getCategories().addAll(Arrays.asList(category1, category2));
-    product3.getCategories().addAll(Arrays.asList(category1));
+    product3.getCategories().addAll(Collections.singletonList(category1));
 
     State state1 = new State(null, "Minas Gerais");
     State state2 = new State(null, "São Paulo");
 
-    City city1 = new City(null, "Uberlândia");
-    City city2 = new City(null, "São Paulo");
-    City city3 = new City(null, "Campinas");
+    City city1 = new City(null, "Uberlândia", state1);
+    City city2 = new City(null, "São Paulo", state2);
+    City city3 = new City(null, "Campinas", state2);
 
     state1.getCityList().add(city1);
     state2.getCityList().addAll(Arrays.asList(city2, city3));

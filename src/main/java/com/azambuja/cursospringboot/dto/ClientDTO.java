@@ -1,25 +1,25 @@
 package com.azambuja.cursospringboot.dto;
 
 import com.azambuja.cursospringboot.domain.Client;
-import org.hibernate.validator.constraints.Length;
-
+import java.io.Serializable;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import java.io.Serializable;
+import org.hibernate.validator.constraints.Length;
 
 public class ClientDTO implements Serializable {
   private static final long serialVersionUID = 1L;
 
   private Integer id;
+
   @NotEmpty(message = "Cannot be Empty")
   @Length(min = 5, max = 120, message = "Size must be between 5 and 120")
   private String name;
+
   @NotEmpty(message = "Cannot be Empty")
   @Email(message = "Invalid Email")
   private String email;
 
-  public ClientDTO() {
-  }
+  public ClientDTO() {}
 
   public ClientDTO(Client client) {
     this.id = client.getId();

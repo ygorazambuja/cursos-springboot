@@ -19,9 +19,10 @@ public class City implements Serializable {
 
   public City() {}
 
-  public City(Integer id, String name) {
+  public City(Integer id, String name, State state) {
     this.id = id;
     this.name = name;
+    this.state = state;
   }
 
   public Integer getId() {
