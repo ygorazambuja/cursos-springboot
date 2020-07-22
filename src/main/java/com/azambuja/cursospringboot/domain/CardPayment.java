@@ -1,11 +1,10 @@
 package com.azambuja.cursospringboot.domain;
 
 import com.azambuja.cursospringboot.domain.enums.PaymentState;
-import java.io.Serializable;
 import javax.persistence.Entity;
 
 @Entity
-public class CardPayment extends Payment implements Serializable {
+public class CardPayment extends Payment {
   private static final long serialVersionUID = 1L;
 
   private Integer numberOfParcels;

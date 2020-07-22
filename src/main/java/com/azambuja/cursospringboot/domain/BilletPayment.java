@@ -2,12 +2,11 @@ package com.azambuja.cursospringboot.domain;
 
 import com.azambuja.cursospringboot.domain.enums.PaymentState;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
 
 @Entity
-public class BilletPayment extends Payment implements Serializable {
+public class BilletPayment extends Payment {
   private static final long serialVersionUID = 1L;
 
   @JsonFormat(pattern = "dd/MM/yyyy")

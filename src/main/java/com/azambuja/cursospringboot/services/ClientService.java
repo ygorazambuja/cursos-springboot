@@ -10,6 +10,7 @@ import com.azambuja.cursospringboot.repository.AddressRepository;
 import com.azambuja.cursospringboot.repository.ClientRepository;
 import com.azambuja.cursospringboot.services.exceptions.DataIntegrityException;
 import com.azambuja.cursospringboot.services.exceptions.ObjectNotFoundException;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -17,8 +18,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 public class ClientService {
@@ -30,13 +29,13 @@ public class ClientService {
 
   public Client getById(Integer id) {
     return clientRepository
-            .findById(id)
-            .orElseThrow(
-                    () ->
-                            new ObjectNotFoundException(
-                                    "Object " + Client.class.getName() + " id: " + id + " not found"
-                            )
-            );
+      .findById(id)
+      .orElseThrow(
+        () ->
+          new ObjectNotFoundException(
+            "Object " + Client.class.getName() + " id: " + id + " not found"
+          )
+      );
   }
 
   @Transactional
@@ -72,48 +71,48 @@ public class ClientService {
   }
 
   public Page<Client> findPage(
-          Integer page,
-          Integer linesPerPage,
-          String orderBy,
-          String direction
+    Integer page,
+    Integer linesPerPage,
+    String orderBy,
+    String direction
   ) {
     PageRequest pageRequest = PageRequest.of(
-            page,
-            linesPerPage,
-            Sort.Direction.valueOf(direction),
-            orderBy
+      page,
+      linesPerPage,
+      Sort.Direction.valueOf(direction),
+      orderBy
     );
     return clientRepository.findAll(pageRequest);
   }
 
   public Client fromDTO(ClientDTO clientDTO) {
     return new Client(
-            clientDTO.getId(),
-            clientDTO.getName(),
-            clientDTO.getEmail(),
-            null,
-            null
+      clientDTO.getId(),
+      clientDTO.getName(),
+      clientDTO.getEmail(),
+      null,
+      null
     );
   }
 
   public Client fromDTO(ClientNewDTO clientDTO) {
     Client client = new Client(
-            null,
-            clientDTO.getName(),
-            clientDTO.getEmail(),
-            clientDTO.getCpfOrCpnj(),
-            ClientType.toEnum(clientDTO.getClientType())
+      null,
+      clientDTO.getName(),
+      clientDTO.getEmail(),
+      clientDTO.getCpfOrCnpj(),
+      ClientType.toEnum(clientDTO.getClientType())
     );
     City city = new City(clientDTO.getCityId(), null, null);
     Address address = new Address(
-            null,
-            clientDTO.getPublicPlace(),
-            clientDTO.getLocalNumber(),
-            clientDTO.getComplement(),
-            clientDTO.getNeighborhood(),
-            clientDTO.getZipcode(),
-            client,
-            city
+      null,
+      clientDTO.getPublicPlace(),
+      clientDTO.getLocalNumber(),
+      clientDTO.getComplement(),
+      clientDTO.getNeighborhood(),
+      clientDTO.getZipcode(),
+      client,
+      city
     );
     client.getAddressList().add(address);
     if (clientDTO.getPhone1() != null) {

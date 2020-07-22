@@ -4,8 +4,12 @@ import com.azambuja.cursospringboot.domain.Client;
 import java.io.Serializable;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+
+import com.azambuja.cursospringboot.services.validation.ClientUpdate;
 import org.hibernate.validator.constraints.Length;
 
+
+@ClientUpdate
 public class ClientDTO implements Serializable {
   private static final long serialVersionUID = 1L;
 

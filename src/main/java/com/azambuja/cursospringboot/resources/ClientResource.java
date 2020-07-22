@@ -4,16 +4,15 @@ import com.azambuja.cursospringboot.domain.Client;
 import com.azambuja.cursospringboot.dto.ClientDTO;
 import com.azambuja.cursospringboot.dto.ClientNewDTO;
 import com.azambuja.cursospringboot.services.ClientService;
+import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import javax.validation.Valid;
-import java.net.URI;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/clients")
@@ -32,10 +31,10 @@ public class ClientResource {
     Client client = clientService.fromDTO(newClient);
     client = clientService.insert(client);
     URI uri = ServletUriComponentsBuilder
-            .fromCurrentRequest()
-            .path("/{id}")
-            .buildAndExpand(client.getId())
-            .toUri();
+      .fromCurrentRequest()
+      .path("/{id}")
+      .buildAndExpand(client.getId())
+      .toUri();
     return ResponseEntity.created(uri).build();
   }
 

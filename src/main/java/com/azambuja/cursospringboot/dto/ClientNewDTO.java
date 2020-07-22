@@ -1,54 +1,46 @@
 package com.azambuja.cursospringboot.dto;
 
+import com.azambuja.cursospringboot.services.validation.ClientInsert;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
+@ClientInsert
 public class ClientNewDTO implements Serializable {
   private static final long serialVersionUID = 1L;
 
+  @NotEmpty(message = "Cannot be empty")
+  @Length(min = 5, message = "Size must be between 5 and 120 characters")
   private String name;
+
+  @NotEmpty(message = "Cannot be empty")
+  @Email
   private String email;
-  private String cpfOrCpnj;
+
+  @NotEmpty(message = "Cannot be empty")
+  private String cpfOrCnpj;
+
   private Integer clientType;
 
+  @NotEmpty(message = "Cannot be empty")
   private String publicPlace;
+
   private String localNumber;
   private String complement;
   private String neighborhood;
+
+  @NotEmpty(message = "Cannot be empty")
   private String zipcode;
 
-  private String phone1, phone2, phone3;
+  @NotEmpty(message = "Cannot be empty")
+  private String phone1;
+
+  private String phone2, phone3;
   private Integer cityId;
 
-  public ClientNewDTO() {}
-
-  public ClientNewDTO(
-    String name,
-    String email,
-    String cpfOrCpnj,
-    Integer clientType,
-    String publicPlace,
-    String localNumber,
-    String complement,
-    String neighborhood,
-    String zipcode,
-    String phone1,
-    String phone2,
-    String phone3,
-    Integer cityId
-  ) {
-    this.name = name;
-    this.email = email;
-    this.cpfOrCpnj = cpfOrCpnj;
-    this.clientType = clientType;
-    this.publicPlace = publicPlace;
-    this.localNumber = localNumber;
-    this.complement = complement;
-    this.neighborhood = neighborhood;
-    this.zipcode = zipcode;
-    this.phone1 = phone1;
-    this.phone2 = phone2;
-    this.phone3 = phone3;
-    this.cityId = cityId;
+  public ClientNewDTO() {
   }
 
   public String getName() {
@@ -67,12 +59,12 @@ public class ClientNewDTO implements Serializable {
     this.email = email;
   }
 
-  public String getCpfOrCpnj() {
-    return cpfOrCpnj;
+  public String getCpfOrCnpj() {
+    return cpfOrCnpj;
   }
 
-  public void setCpfOrCpnj(String cpfOrCpnj) {
-    this.cpfOrCpnj = cpfOrCpnj;
+  public void setCpfOrCnpj(String cpfOrCnpj) {
+    this.cpfOrCnpj = cpfOrCnpj;
   }
 
   public Integer getClientType() {

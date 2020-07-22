@@ -1,7 +1,6 @@
 package com.azambuja.cursospringboot.services;
 
 import com.azambuja.cursospringboot.domain.Category;
-import com.azambuja.cursospringboot.domain.Category;
 import com.azambuja.cursospringboot.dto.CategoryDTO;
 import com.azambuja.cursospringboot.repository.CategoryRepository;
 import com.azambuja.cursospringboot.services.exceptions.DataIntegrityException;

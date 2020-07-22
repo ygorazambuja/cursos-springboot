@@ -2,12 +2,10 @@ package com.azambuja.cursospringboot.domain;
 
 import com.azambuja.cursospringboot.domain.enums.ClientType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.*;
 
 @Entity
 public class Client implements Serializable {
@@ -18,8 +16,10 @@ public class Client implements Serializable {
   private Integer id;
 
   private String name;
+
+  @Column(unique = true)
   private String email;
-  private String cpfOrCpnj;
+  private String cpfOrCnpj;
   private Integer clientType;
 
   @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
@@ -36,16 +36,16 @@ public class Client implements Serializable {
   public Client() {}
 
   public Client(
-    Integer id,
-    String name,
-    String email,
-    String cpfOrCpnj,
-    ClientType clientType
+          Integer id,
+          String name,
+          String email,
+          String cpfOrCnpj,
+          ClientType clientType
   ) {
     this.id = id;
     this.name = name;
     this.email = email;
-    this.cpfOrCpnj = cpfOrCpnj;
+    this.cpfOrCnpj = cpfOrCnpj;
     this.clientType = (clientType == null) ? null : clientType.getCode();
   }
 
@@ -73,12 +73,12 @@ public class Client implements Serializable {
     this.email = email;
   }
 
-  public String getCpfOrCpnj() {
-    return cpfOrCpnj;
+  public String getCpfOrCnpj() {
+    return cpfOrCnpj;
   }
 
-  public void setCpfOrCpnj(String cpfOrCpnj) {
-    this.cpfOrCpnj = cpfOrCpnj;
+  public void setCpfOrCnpj(String cpfOrCnpj) {
+    this.cpfOrCnpj = cpfOrCnpj;
   }
 
   public ClientType getClientType() {
@@ -120,7 +120,7 @@ public class Client implements Serializable {
 
     Client client = (Client) o;
 
-    return id != null ? id.equals(client.id) : client.id == null;
+    return Objects.equals(id, client.id);
   }
 
   @Override

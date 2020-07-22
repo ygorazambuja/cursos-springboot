@@ -7,7 +7,6 @@ import com.azambuja.cursospringboot.repository.*;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collections;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -176,11 +175,11 @@ public class CursoSpringbootApplication implements CommandLineRunner {
     ItemRequest itemRequest3 = new ItemRequest(buyRequest2, product2, 100.00, 1, 800.00);
 
     buyRequest.getItemRequestSet().addAll(Arrays.asList(itemRequest1, itemRequest2));
-    buyRequest2.getItemRequestSet().addAll(Arrays.asList(itemRequest3));
+    buyRequest2.getItemRequestSet().add(itemRequest3);
 
-    product1.getItemRequestSet().addAll(Arrays.asList(itemRequest1));
-    product2.getItemRequestSet().addAll(Arrays.asList(itemRequest3));
-    product3.getItemRequestSet().addAll(Arrays.asList(itemRequest2));
+    product1.getItemRequestSet().add(itemRequest1);
+    product2.getItemRequestSet().add(itemRequest3);
+    product3.getItemRequestSet().add(itemRequest2);
 
     itemRequestRepository.saveAll(
       Arrays.asList(itemRequest1, itemRequest2, itemRequest3)
