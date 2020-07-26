@@ -8,10 +8,9 @@ import com.azambuja.cursospringboot.repository.BuyRequestRepository;
 import com.azambuja.cursospringboot.repository.ItemRequestRepository;
 import com.azambuja.cursospringboot.repository.PaymentRepository;
 import com.azambuja.cursospringboot.services.exceptions.ObjectNotFoundException;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Date;
 
 @Service
 public class BuyRequestService {
@@ -32,13 +31,13 @@ public class BuyRequestService {
 
   public BuyRequest getById(Integer id) {
     return buyRequestRepository
-            .findById(id)
-            .orElseThrow(
-                    () ->
-                            new ObjectNotFoundException(
-                                    "Object " + BuyRequest.class.getName() + " id: " + id + " not found"
-                            )
-            );
+      .findById(id)
+      .orElseThrow(
+        () ->
+          new ObjectNotFoundException(
+            "Object " + BuyRequest.class.getName() + " id: " + id + " not found"
+          )
+      );
   }
 
   public BuyRequest insert(BuyRequest buyRequest) {
