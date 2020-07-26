@@ -1,9 +1,12 @@
 package com.azambuja.cursospringboot.domain;
 
 import com.azambuja.cursospringboot.domain.enums.PaymentState;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
 import javax.persistence.Entity;
 
 @Entity
+@JsonTypeName("cardPayment")
 public class CardPayment extends Payment {
   private static final long serialVersionUID = 1L;
 

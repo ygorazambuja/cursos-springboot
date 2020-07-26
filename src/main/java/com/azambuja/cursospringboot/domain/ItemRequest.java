@@ -1,9 +1,10 @@
 package com.azambuja.cursospringboot.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.io.Serializable;
+
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import java.io.Serializable;
 
 @Entity
 public class ItemRequest implements Serializable {
@@ -20,11 +21,11 @@ public class ItemRequest implements Serializable {
   public ItemRequest() {}
 
   public ItemRequest(
-    BuyRequest buyRequest,
-    Product product,
-    Double discount,
-    Integer quantity,
-    Double price
+          BuyRequest buyRequest,
+          Product product,
+          Double discount,
+          Integer quantity,
+          Double price
   ) {
     super();
     id.setBuyRequest(buyRequest);
@@ -32,6 +33,18 @@ public class ItemRequest implements Serializable {
     this.discount = discount;
     this.quantity = quantity;
     this.price = price;
+  }
+
+  public double getSubTotal() {
+    return (this.price - this.discount) * this.quantity;
+  }
+
+  public void setBuyRequest(BuyRequest buyRequest) {
+    id.setBuyRequest(buyRequest);
+  }
+
+  public void setProduct(Product product) {
+    id.setProduct(product);
   }
 
   public ItemRequestPK getId() {

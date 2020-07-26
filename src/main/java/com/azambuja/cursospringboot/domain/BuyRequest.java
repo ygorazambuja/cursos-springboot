@@ -1,11 +1,12 @@
 package com.azambuja.cursospringboot.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.*;
 
 @Entity
 public class BuyRequest implements Serializable {
@@ -32,7 +33,8 @@ public class BuyRequest implements Serializable {
   @OneToMany(mappedBy = "id.buyRequest")
   private Set<ItemRequest> itemRequestSet = new HashSet<>();
 
-  public BuyRequest() {}
+  public BuyRequest() {
+  }
 
   public BuyRequest(Integer id, Date instant, Client client, Address deliverAddress) {
     super();
@@ -40,6 +42,14 @@ public class BuyRequest implements Serializable {
     this.instant = instant;
     this.client = client;
     this.deliverAddress = deliverAddress;
+  }
+
+  public double getTotalValue() {
+    double sum = 0.0;
+    for (ItemRequest itemRequest : itemRequestSet) {
+      sum = sum + itemRequest.getSubTotal();
+    }
+    return sum;
   }
 
   public Integer getId() {
