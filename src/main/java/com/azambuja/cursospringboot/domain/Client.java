@@ -2,10 +2,9 @@ package com.azambuja.cursospringboot.domain;
 
 import com.azambuja.cursospringboot.domain.enums.ClientType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
+import javax.persistence.*;
 
 @Entity
 public class Client implements Serializable {
@@ -19,6 +18,7 @@ public class Client implements Serializable {
 
   @Column(unique = true)
   private String email;
+
   private String cpfOrCnpj;
   private Integer clientType;
 
@@ -36,11 +36,11 @@ public class Client implements Serializable {
   public Client() {}
 
   public Client(
-          Integer id,
-          String name,
-          String email,
-          String cpfOrCnpj,
-          ClientType clientType
+    Integer id,
+    String name,
+    String email,
+    String cpfOrCnpj,
+    ClientType clientType
   ) {
     this.id = id;
     this.name = name;

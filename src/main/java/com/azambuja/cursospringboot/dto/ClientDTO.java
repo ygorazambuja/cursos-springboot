@@ -1,13 +1,11 @@
 package com.azambuja.cursospringboot.dto;
 
 import com.azambuja.cursospringboot.domain.Client;
+import com.azambuja.cursospringboot.services.validation.ClientUpdate;
 import java.io.Serializable;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-
-import com.azambuja.cursospringboot.services.validation.ClientUpdate;
 import org.hibernate.validator.constraints.Length;
-
 
 @ClientUpdate
 public class ClientDTO implements Serializable {

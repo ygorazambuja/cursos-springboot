@@ -1,11 +1,10 @@
 package com.azambuja.cursospringboot.dto;
 
 import com.azambuja.cursospringboot.services.validation.ClientInsert;
-import org.hibernate.validator.constraints.Length;
-
+import java.io.Serializable;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import java.io.Serializable;
+import org.hibernate.validator.constraints.Length;
 
 @ClientInsert
 public class ClientNewDTO implements Serializable {
@@ -40,8 +39,7 @@ public class ClientNewDTO implements Serializable {
   private String phone2, phone3;
   private Integer cityId;
 
-  public ClientNewDTO() {
-  }
+  public ClientNewDTO() {}
 
   public String getName() {
     return name;
